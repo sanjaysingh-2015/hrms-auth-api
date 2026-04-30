@@ -22,11 +22,7 @@ public class AuthController {
 
     private final AuthService service;
 
-    @Operation(summary = "Login user and generate JWT")
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request) {
-        return ResponseEntity.ok(service.login(request));
-    }
+
     @Operation(summary = "Create user and assign role")
     @PostMapping("/users")
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request) {

@@ -22,7 +22,8 @@ public class User extends BaseAuditEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
-    private String password;
+    @Column(name="auth0_user_id", unique = true)
+    private String auth0UserId;
 
     private String email;
 
