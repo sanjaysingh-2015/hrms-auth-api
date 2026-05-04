@@ -25,21 +25,18 @@ public class TenantFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-
         try {
+            if (request.getServletPath().startsWith("/api/auth")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
             if (auth != null && auth.getPrincipal() instanceof Jwt jwt) {
-
                 String auth0Id = jwt.getSubject();
-
                 Long tenantId = userRepository.findTenantIdByAuth0Id(auth0Id);
-
                 TenantContext.setTenantId(tenantId);
             }
-
             filterChain.doFilter(request, response);
-
         } finally {
             TenantContext.clear(); // 🔥 avoid memory leak
         }

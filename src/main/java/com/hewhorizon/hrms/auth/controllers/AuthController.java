@@ -9,22 +9,19 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Auth APIs", description = "Authentication operations")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class AuthController {
 
     private final AuthService service;
 
-
     @Operation(summary = "Create user and assign role")
-    @PostMapping("/users")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request) {
         return ResponseEntity.ok(service.createUser(request));
     }

@@ -32,13 +32,13 @@ public class Auth0ServiceImpl implements com.hewhorizon.hrms.auth.services.Auth0
     @Override
     public String getManagementToken() {
         String url = domain + "/oauth/token";
-
+        System.out.println(url);
         Map<String, String> body = new HashMap<>();
         body.put("client_id", clientId);
         body.put("client_secret", clientSecret);
         body.put("audience", audience);
         body.put("grant_type", "client_credentials");
-
+System.out.println(body);
         Map response = restTemplate.postForObject(url, body, Map.class);
         return (String) response.get("access_token");
     }
